@@ -1,1 +1,3 @@
-# smate
+# Shellix AI
+
+Terminal AI assistant
