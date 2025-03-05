@@ -5,6 +5,7 @@ from langchain_community.tools import TavilySearchResults
 from shellix.shell_tool import ShellTool
 from shellix.write_tool import write_file
 from langchain_core.tools import tool
+from datetime import datetime
 
 
 def load_tools(credentials):
@@ -22,14 +23,20 @@ def load_tools(credentials):
 
 
 def process_input(input_str, credentials, current_directory):
+    current_date = datetime.now().strftime("%Y-%m-%d")
     prompt = ChatPromptTemplate.from_messages(
         [
-            ("system", "You are a helpful console assistant called Shellix. "
-                       "Your output and tool call results will be outputted to user terminal."
-                       "Minimize comments in output code and provide clear responses overall. "
-                       "You can creatively use the terminal commands and tools provided to you to accomplish your tasks. For example ShellTool with 'cat' to read files. "
-                       "Think about how can you use shell or search tool to accomplish the task if you dont have information directly provided."
-                       "Feel free to traverse the current folder with 'ls' to accomplish your tasks."),
+            ("system", f"""
+            You are a helpful console assistant called Shellix. 
+            
+            Current Date: {current_date}
+            
+            Your output and tool call results will be outputted to user terminal.
+            Minimize comments in output code and provide clear responses overall. 
+            You can creatively use the terminal commands and tools provided to you to accomplish your tasks. For example ShellTool with 'cat' to read files. 
+            Think about how can you use shell or search tool to accomplish the task if you dont have information directly provided.
+            Feel free to traverse the current folder with 'ls' to accomplish your tasks.
+            """),
             ("placeholder", "{messages}"),
         ]
     )
