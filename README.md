@@ -32,7 +32,7 @@ Here are some examples of how to use Shellix:
    ```
    This command will perform an extensive web search on AI advancements and provide a concise summary of the top three articles, saving you time on research.
 
-5. **Custom Development Environment Setup**
+3. **Custom Development Environment Setup**
    ```bash
    poetry run sx "Set up a development environment with Node.js, MongoDB, and VSCode extensions for JavaScript"
    ```
