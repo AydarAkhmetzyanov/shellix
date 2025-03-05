@@ -20,23 +20,24 @@ poetry install
 
 Here are some examples of how to use Shellix:
 
-1. **Basic Command Execution**
+1. **Automated Project Setup**
    ```bash
-   poetry run sx "List all files in the current directory"
+   poetry run sx "Initialize a new Git repository, create a Python virtual environment, and install Flask"
    ```
-   This command will intelligently list all files in your current working directory.
+   This command will set up a new Git repository, create a virtual environment, and install the Flask web framework, streamlining your project initialization process.
 
-2. **Automating Tasks**
+2. **Advanced Web Research**
    ```bash
-   poetry run sx "Create a new Python virtual environment and install requests"
+   poetry run sx "Conduct a detailed search on the latest advancements in AI and summarize the top three articles. Create CSV file with the list of summaries."
    ```
-   This will automate the creation of a virtual environment and install the `requests` package.
+   This command will perform an extensive web search on AI advancements and provide a concise summary of the top three articles, saving you time on research.
 
-3. **Web Search for Development**
+5. **Custom Development Environment Setup**
    ```bash
-   poetry run sx "Search for the latest Python 3.9 features"
+   poetry run sx "Set up a development environment with Node.js, MongoDB, and VSCode extensions for JavaScript"
    ```
-   This will perform a web search and provide you with the latest features of Python 3.9.
+   This command will install Node.js, MongoDB, and configure VSCode with essential JavaScript extensions, providing a ready-to-use development environment.
+
 
 ## Usage
 
