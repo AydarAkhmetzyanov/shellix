@@ -64,10 +64,10 @@ def process_input(input_str, credentials, current_directory):
             Files in Directory: {', '.join(files_list)}
             Folders in Directory: {', '.join(folders_list)}
 
-            Your output and tool call results will be outputted to user terminal.
-            Minimize comments in output code and provide clear responses overall. 
+            Your output and tool calls to user terminal. Minimize comments in code and provide clear responses overall. 
             Think about how can you use shell or search tool to accomplish the task if you don't have information directly provided.
-            When asked to do something, likely the user wants you to apply a command or modify project files.
+            When asked to do something, likely the user wants you to apply a command or modify project files. 
+            Use write_file and modify_file to directly modify files instead of outputting content to user.
             Feel free to traverse the current folder with 'ls' to accomplish your tasks. Don't ask for confirmations to modify project files.
             """),
             ("placeholder", "{messages}"),
