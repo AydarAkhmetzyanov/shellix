@@ -52,7 +52,7 @@ def process_input(input_str, credentials, current_directory):
                        streaming=True)
     langgraph_agent_executor = create_react_agent(model, tools, prompt=prompt)
 
-    messages = langgraph_agent_executor.invoke({"messages": [("human", input_str)]}, debug=False)
+    messages = langgraph_agent_executor.invoke({"messages": [("human", input_str)]})
 
     print(messages["messages"][-1].content)
     return None
