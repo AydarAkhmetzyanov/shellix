@@ -6,6 +6,7 @@ from shellix.shell_tool import ShellTool
 from shellix.write_tool import write_file
 from langchain_core.tools import tool
 from datetime import datetime
+import os
 
 
 def load_tools(credentials):
@@ -24,12 +25,16 @@ def load_tools(credentials):
 
 def process_input(input_str, credentials, current_directory):
     current_date = datetime.now().strftime("%Y-%m-%d")
+    folder_path = os.path.abspath(current_directory)
+    files_list = os.listdir(current_directory)
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", f"""
             You are a helpful console assistant called Shellix. 
             
             Current Date: {current_date}
+            Current Directory: {folder_path}
+            Files in Directory: {', '.join(files_list)}
             
             Your output and tool call results will be outputted to user terminal.
             Minimize comments in output code and provide clear responses overall. 
