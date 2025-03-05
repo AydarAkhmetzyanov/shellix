@@ -3,8 +3,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import create_react_agent
 from langchain_community.tools import TavilySearchResults
 from shellix.shell_tool import ShellTool
-from shellix.write_tool import write_file
-from langchain_core.tools import tool
+from shellix.write_tool import write_file, modify_file
 from datetime import datetime
 import os
 
@@ -19,7 +18,7 @@ def load_tools(credentials):
         tavily_api_key=credentials['TAVILY_KEY'],
     )
     shell_tool = ShellTool()
-    tools = [shell_tool, search_tool, write_file]
+    tools = [shell_tool, search_tool, write_file, modify_file]
     return tools
 
 
