@@ -4,11 +4,7 @@ Shellix is an open-source terminal AI assistant designed to enhance your command
 
 ## Features
 
-- **Intelligent Command Suggestions:** Provides context-aware command suggestions to streamline your workflow.
-- **Automation Capabilities:** Automate repetitive tasks with ease using AI-driven scripts.
-- **Integration with Popular Libraries:** Utilizes libraries like `langgraph`, `langchain-openai`, and `tavily-python` for enhanced AI functionalities.
 - **Easy to Use:** Simple command-line interface with powerful capabilities.
-- **Customizable:** Easily extendable to fit your specific needs.
 - **Long Research and Development Web Search:** Capable of performing extensive web searches for research and development purposes.
 - **Direct Access to Project Files and System:** Offers direct access to project files and system commands for seamless integration and operation.
 
@@ -19,6 +15,28 @@ To install the dependencies, run:
 ```bash
 poetry install
 ```
+
+## Usage Examples
+
+Here are some examples of how to use Shellix:
+
+1. **Basic Command Execution**
+   ```bash
+   poetry run sx "List all files in the current directory"
+   ```
+   This command will intelligently list all files in your current working directory.
+
+2. **Automating Tasks**
+   ```bash
+   poetry run sx "Create a new Python virtual environment and install requests"
+   ```
+   This will automate the creation of a virtual environment and install the `requests` package.
+
+3. **Web Search for Development**
+   ```bash
+   poetry run sx "Search for the latest Python 3.9 features"
+   ```
+   This will perform a web search and provide you with the latest features of Python 3.9.
 
 ## Usage
 
