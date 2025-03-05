@@ -3,7 +3,7 @@ from langchain_core.tools import tool
 
 @tool
 def write_file(file_name: str, file_content: str) -> bool:
-    """Writes content to a file, please note that the full file content has to be provided."""
+    """Writes full content to a file, please note that the full file content has to be provided."""
     print(f"Writing {file_name}...")
     with open(file_name, "w") as f:
         f.write(file_content)
@@ -12,7 +12,7 @@ def write_file(file_name: str, file_content: str) -> bool:
 
 @tool
 def modify_file(file_name: str, substring_search: str, replacement: str) -> str:
-    """Finds a specific substring in a file and replaces it."""
+    """Use to modify a part of file. Finds a specific substring in a file and replaces it."""
     print(f"Modifying {file_name} Searching for '{substring_search}'...")
     try:
         with open(file_name, "r") as f:
