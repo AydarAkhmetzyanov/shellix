@@ -9,27 +9,21 @@ def write_file(file_name: str, file_content: str) -> bool:
         f.write(file_content)
     return f"{file_name} written successfully"
 
+
 @tool
-def modify_file(file_name: str, substring_search: str, lines_to_remove: int, replacement_snippet: str) -> str:
-    """Finds a specific substring in a file, removes that line, removes the specified number of lines after it, and replaces it with new content. Please note that you should add spaces/tabs to match content."""
-    print(f"Modifying {file_name} searching for {substring_search}...")
+def modify_file(file_name: str, substring_search: str, replacement: str) -> str:
+    """Finds a specific substring in a file and replaces it."""
+    print(f"Modifying {file_name} Searching for '{substring_search}'...")
     try:
-        with open(file_name, "r", encoding="utf-8") as f:
-            lines = f.readlines()
+        with open(file_name, "r") as f:
+            content = f.read()
+    except FileNotFoundError:
+        return f"File {file_name} not found."
 
-        updated_lines = []
-        i = 0
-        while i < len(lines):
-            if substring_search in lines[i]:
-                i += 1 + lines_to_remove
-                updated_lines.append(replacement_snippet + "\n")
-            else:
-                updated_lines.append(lines[i])
-                i += 1
+    if substring_search not in content:
+        return "No occurrences found to replace."
 
-        with open(file_name, "w", encoding="utf-8") as f:
-            f.writelines(updated_lines)
-
-        return f"{file_name} modified successfully"
-    except Exception as e:
-        return f"Error modifying file: {e}"
+    modified_content = content.replace(substring_search, replacement)
+    with open(file_name, "w") as f:
+        f.write(modified_content)
+    return f"Replaced '{substring_search}' with '{replacement}' in {file_name}."
