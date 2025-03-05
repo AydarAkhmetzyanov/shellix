@@ -65,7 +65,7 @@ class ShellTool(BaseTool):  # type: ignore[override, override]
     name: str = "terminal"
     """Name of tool."""
 
-    description: str = f"Run shell commands on this {_get_platform()} machine at the current working directory."
+    description: str = f"Run shell commands on this {_get_platform()} machine at the current working directory. You can execute any shell commands."
     """Description of tool."""
 
     args_schema: Type[BaseModel] = ShellInput
@@ -95,7 +95,10 @@ class ShellTool(BaseTool):  # type: ignore[override, override]
             result = self.process.run(commands)
             if len(result) > MAX_OUTPUT_LENGTH:
                 result = result[:MAX_OUTPUT_LENGTH] + "\n (output truncated)"
-            print(result)
+            if len(result) > 255:
+                print(result[0:255] + '...')
+            else:
+                print(result)
             return result
 
         except Exception as e:

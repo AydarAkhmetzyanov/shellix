@@ -44,6 +44,7 @@ def load_credentials():
             credentials[key] = value
 
     credentials.setdefault("OPENAI_MODEL", DEFAULT_MODEL)  # Ensure a default model is always present
+    os.environ['TAVILY_API_KEY'] = credentials.get('TAVILY_KEY', '')  #
     return credentials
 
 
@@ -55,19 +56,12 @@ def main():
     if len(sys.argv) > 1:
         user_input = " ".join(sys.argv[1:])
     else:
-        print("Enter your input (submit an empty line to finish):")
-        lines = []
-        while True:
-            try:
-                line = input()
-            except EOFError:
-                break
-            if line == "":
-                break
-            lines.append(line)
-        user_input = "\n".join(lines)
+        print("Enter your input (Ctrl+D or Ctrl+Z to finish):")
+        # Read all input from stdin until EOF
+        user_input = sys.stdin.read().strip()
 
-    print(process_input(user_input, credentials, current_directory))
+    print("\nProcessing...\n")
+    process_input(user_input, credentials, current_directory)
 
 
 if __name__ == "__main__":
