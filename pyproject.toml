@@ -3,14 +3,16 @@ name = "shellix"
 version = "0.1.0"
 description = "Terminal AI assistant for development"
 authors = [
-    {name = "Aydar Akhmetzyanov",email = "aydar.tech@gmail.com"}
+    {name = "Aydar Akhmetzyanov", email = "aydar.tech@gmail.com"}
 ]
 license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-]
+requires-python = ">=3.11,<4.0"
+dependencies = ["langgraph (>=0.3.5,<0.4.0)"]
 
+[project.scripts]
+sx = "shellix.__main__:main"
+shellix = "shellix.__main__:main"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
