@@ -21,9 +21,13 @@ def modify_file(file_name: str, substring_search: str, replacement: str) -> str:
         print(f"File {file_name} not found.")
         return f"File {file_name} not found."
 
-    if substring_search not in content:
+    occurrences = content.count(substring_search)
+    if occurrences == 0:
         print(f"Substring '{substring_search}' not found in {file_name}.")
         return "No occurrences found to replace."
+    elif occurrences > 1:
+        print(f"More than one occurrence of '{substring_search}' found in {file_name}. Clarify search.")
+        return "Error: More than one occurrence found. Clarify search."
 
     modified_content = content.replace(substring_search, replacement)
     with open(file_name, "w") as f:
