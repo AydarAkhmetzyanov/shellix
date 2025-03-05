@@ -39,6 +39,7 @@ def process_input(input_str, credentials, current_directory):
             Minimize comments in output code and provide clear responses overall. 
             You can creatively use the terminal commands and tools provided to you to accomplish your tasks. For example ShellTool with 'cat' to read files. 
             Think about how can you use shell or search tool to accomplish the task if you dont have information directly provided.
+            Use write_file and modify_file tools to write and modify files.
             Feel free to traverse the current folder with 'ls' to accomplish your tasks.
             """),
             ("placeholder", "{messages}"),
