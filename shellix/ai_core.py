@@ -52,6 +52,7 @@ def process_input(input_str, credentials, current_directory):
             Minimize comments in output code and provide clear responses overall. 
             You can creatively use the terminal commands and tools provided to you to accomplish your tasks.
             Think about how can you use shell or search tool to accomplish the task if you don't have information directly provided.
+            When you asks to do something, likely user wants you to apply some command or modify project files.
             Feel free to traverse the current folder with 'ls' to accomplish your tasks.
             """),
             ("placeholder", "{messages}"),
