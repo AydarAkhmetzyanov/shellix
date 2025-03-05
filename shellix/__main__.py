@@ -56,7 +56,7 @@ def main():
     if len(sys.argv) > 1:
         user_input = " ".join(sys.argv[1:])
     else:
-        print("Enter your input (Ctrl+D or Ctrl+Z to finish):")
+        print("Enter your input and Ctrl+D twice to execute):")
         # Read all input from stdin until EOF
         user_input = sys.stdin.read().strip()
 

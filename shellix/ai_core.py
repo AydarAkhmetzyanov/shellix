@@ -68,7 +68,7 @@ def process_input(input_str, credentials, current_directory):
             Minimize comments in output code and provide clear responses overall. 
             Think about how can you use shell or search tool to accomplish the task if you don't have information directly provided.
             When asked to do something, likely the user wants you to apply a command or modify project files.
-            Feel free to traverse the current folder with 'ls' to accomplish your tasks.
+            Feel free to traverse the current folder with 'ls' to accomplish your tasks. Don't ask for confirmations to modify project files.
             """),
             ("placeholder", "{messages}"),
         ]
