@@ -19,7 +19,9 @@ tools = [shell_tool]
 
 prompt = ChatPromptTemplate.from_messages(
     [
-        ("system", "You are a helpful assistant."),
+        ("system", "You are a helpful console assistant called Shellix. "
+                   "Your output and tool call results will be outputted to user terminal."
+                   "You can creatively use the terminal commands and tools provided to you to accomplish your tasks. For example ShellTool with 'cat' to read files."),
         ("placeholder", "{messages}"),
     ]
 )
