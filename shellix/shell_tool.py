@@ -92,8 +92,11 @@ class ShellTool(BaseTool):  # type: ignore[override, override]
                 if user_input != "y":
                     logger.info("User aborted command execution.")
                     return "User aborted command execution."
-            result = self.process.run(commands)[0:MAX_OUTPUT_LENGTH]
-            return self.process.run(commands)
+            result = self.process.run(commands)
+            if len(result) > MAX_OUTPUT_LENGTH:
+                result = result[:MAX_OUTPUT_LENGTH] + "\n (output truncated)"
+            print(result)
+            return result
 
         except Exception as e:
             logger.error(f"Error during command execution: {e}")
