@@ -26,8 +26,8 @@ prompt = ChatPromptTemplate.from_messages(
 
 
 
-def process_input(input_str, credentials):
-    """implemented"""
+def process_input(input_str, credentials, current_directory):
+
     model = ChatOpenAI(model=credentials['OPENAI_MODEL'], temperature=0, api_key=credentials['OPENAI_KEY'])
     langgraph_agent_executor = create_react_agent(model, tools, prompt=prompt)
 

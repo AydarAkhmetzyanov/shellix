@@ -50,6 +50,7 @@ def load_credentials():
 def main():
     ensure_config()
     credentials = load_credentials()
+    current_directory = os.getcwd()
 
     if len(sys.argv) > 1:
         user_input = " ".join(sys.argv[1:])
@@ -66,7 +67,7 @@ def main():
             lines.append(line)
         user_input = "\n".join(lines)
 
-    print(process_input(user_input, credentials))
+    print(process_input(user_input, credentials, current_directory))
 
 
 if __name__ == "__main__":
