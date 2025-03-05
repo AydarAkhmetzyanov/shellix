@@ -1,6 +1,16 @@
 # Shellix AI
 
-Shellix is an open-source terminal AI assistant designed to enhance your command-line experience with intelligent suggestions and automation.
+Shellix is an open-source terminal AI assistant designed to enhance your command-line experience with intelligent suggestions and automation. It leverages advanced AI models to provide context-aware assistance, making it easier to execute complex commands and automate repetitive tasks.
+
+## Features
+
+- **Intelligent Command Suggestions:** Provides context-aware command suggestions to streamline your workflow.
+- **Automation Capabilities:** Automate repetitive tasks with ease using AI-driven scripts.
+- **Integration with Popular Libraries:** Utilizes libraries like `langgraph`, `langchain-openai`, and `tavily-python` for enhanced AI functionalities.
+- **Easy to Use:** Simple command-line interface with powerful capabilities.
+- **Customizable:** Easily extendable to fit your specific needs.
+- **Long Research and Development Web Search:** Capable of performing extensive web searches for research and development purposes.
+- **Direct Access to Project Files and System:** Offers direct access to project files and system commands for seamless integration and operation.
 
 ## Installation
 
