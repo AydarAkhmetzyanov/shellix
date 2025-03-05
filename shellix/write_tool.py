@@ -30,3 +30,10 @@ def modify_file(file_name: str, substring_search: str, replacement: str) -> str:
         f.write(modified_content)
     print(f"Replaced '{substring_search}' with '{replacement}' in {file_name}.")
     return f"Replaced '{substring_search}' with '{replacement}' in {file_name}."
+
+def read_file(file_name: str) -> str:
+    """Reads the full content of a file."""
+    print(f"Reading {file_name}...")
+    with open(file_name, "r") as f:
+        content = f.read()
+    return content
