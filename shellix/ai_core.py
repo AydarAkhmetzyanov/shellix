@@ -13,8 +13,8 @@ def load_tools(credentials):
         max_results=10,
         search_depth="advanced",
         include_answer=True,
-        include_raw_content=True,
-        include_images=True,
+        include_raw_content=False,
+        include_images=False,
         tavily_api_key=credentials['TAVILY_KEY'],
     )
     shell_tool = ShellTool()
