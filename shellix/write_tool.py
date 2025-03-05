@@ -18,12 +18,15 @@ def modify_file(file_name: str, substring_search: str, replacement: str) -> str:
         with open(file_name, "r") as f:
             content = f.read()
     except FileNotFoundError:
+        print(f"File {file_name} not found.")
         return f"File {file_name} not found."
 
     if substring_search not in content:
+        print(f"Substring '{substring_search}' not found in {file_name}.")
         return "No occurrences found to replace."
 
     modified_content = content.replace(substring_search, replacement)
     with open(file_name, "w") as f:
         f.write(modified_content)
+    print(f"Replaced '{substring_search}' with '{replacement}' in {file_name}.")
     return f"Replaced '{substring_search}' with '{replacement}' in {file_name}."
