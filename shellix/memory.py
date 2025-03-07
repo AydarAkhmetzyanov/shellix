@@ -2,9 +2,12 @@ import json
 
 # Load memory from JSON
 def load_memory_from_json(file_path):
-    with open(file_path, 'r') as file:
-        memory_data = json.load(file)
-    return memory_data
+    try:
+        with open(file_path, 'r') as file:
+            memory_data = json.load(file)
+        return memory_data
+    except FileNotFoundError:
+        return []
 
 # Initialize memory
 memory = load_memory_from_json('.shellix_memory.json')
