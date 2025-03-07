@@ -38,6 +38,7 @@ def get_directory_contents(current_directory):
 
 
 def process_input(input_str, credentials, current_directory):
+    memory.append({"role": "human", "content": input_str})
     current_date = datetime.now().strftime("%Y-%m-%d")
     folder_path = os.path.abspath(current_directory)
     files_list, folders_list = get_directory_contents(current_directory)
@@ -70,10 +71,14 @@ def process_input(input_str, credentials, current_directory):
 
     # Convert memory (list of dicts) into a list of tuples
     # Lets keep only last 20 messages
+    converted_memory = memory
+    # TODO: I want to remove all message that start with "Tool call:" excluding last 5 such messages. While keeping all other messages.
+
+
     converted_memory = [(msg["role"], msg["content"]) for msg in memory][-20:]
     messages = langgraph_agent_executor.invoke({"messages": converted_memory + [("human", input_str)]})
 
-    memory.append({"role": "human", "content": input_str})
+
     memory.append({"role": "assistant", "content": messages["messages"][-1].content})
     save_memory()
     print(messages["messages"][-1].content)
