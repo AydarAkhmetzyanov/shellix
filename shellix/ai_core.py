@@ -4,6 +4,7 @@ from langgraph.prebuilt import create_react_agent
 from langchain_community.tools import TavilySearchResults
 from shellix.shell_tool import ShellTool
 from shellix.write_tool import write_file, modify_file, read_file
+from shellix.memory import memory, save_memory
 from datetime import datetime
 import json
 import os
@@ -34,25 +35,12 @@ def get_directory_contents(current_directory):
         return [], []
 
 
-def load_memory():
-    try:
-        with open('.shellix_memory.json', 'r') as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
-
-
-def save_memory(memory):
-    with open('.shellix_memory.json', 'w') as file:
-        json.dump(memory, file, indent=4)
 
 
 def process_input(input_str, credentials, current_directory):
     current_date = datetime.now().strftime("%Y-%m-%d")
     folder_path = os.path.abspath(current_directory)
     files_list, folders_list = get_directory_contents(current_directory)
-
-    memory = load_memory()
 
     prompt = ChatPromptTemplate.from_messages(
         [
@@ -81,10 +69,11 @@ def process_input(input_str, credentials, current_directory):
     langgraph_agent_executor = create_react_agent(model, tools, prompt=prompt)
 
     # Convert memory (list of dicts) into a list of tuples
-    converted_memory = [(msg["role"], msg["content"]) for msg in memory]
+    # Lets keep only last 20 messages
+    converted_memory = [(msg["role"], msg["content"]) for msg in memory][-20:]
     messages = langgraph_agent_executor.invoke({"messages": converted_memory + [("human", input_str)]})
 
     memory.append({"role": "human", "content": input_str})
     memory.append({"role": "assistant", "content": messages["messages"][-1].content})
-    save_memory(memory)
+    save_memory()
     print(messages["messages"][-1].content)
