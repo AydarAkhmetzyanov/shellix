@@ -35,16 +35,17 @@ def get_directory_contents(current_directory):
         return [], []
 
 
-def process_input(input_str, credentials, current_directory):
+def process_input(input_str, credentials):
     memory.append({"role": "human", "content": input_str})
     current_date = datetime.now().strftime("%Y-%m-%d")
+    current_directory = os.getcwd()
     folder_path = os.path.abspath(current_directory)
     files_list, folders_list = get_directory_contents(current_directory)
 
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", f"""
-            You are a helpful console assistant called Shellix. 
+            You are a helpful console assistant called Shellix.
 
             Current Date: {current_date}
             Current Directory: {folder_path}
