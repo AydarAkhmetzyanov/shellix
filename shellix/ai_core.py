@@ -35,8 +35,6 @@ def get_directory_contents(current_directory):
         return [], []
 
 
-
-
 def process_input(input_str, credentials, current_directory):
     memory.append({"role": "human", "content": input_str})
     current_date = datetime.now().strftime("%Y-%m-%d")
@@ -66,18 +64,19 @@ def process_input(input_str, credentials, current_directory):
     tools = load_tools(credentials)
 
     model = ChatOpenAI(model=credentials['OPENAI_MODEL'], temperature=0, api_key=credentials['OPENAI_KEY'],
-                         streaming=True)
+                       streaming=True)
     langgraph_agent_executor = create_react_agent(model, tools, prompt=prompt)
 
-    # Convert memory (list of dicts) into a list of tuples
-    # Lets keep only last 20 messages
     converted_memory = memory
-    # TODO: I want to remove all message that start with "Tool call:" excluding last 5 such messages. While keeping all other messages.
-
-
+    tool_call_count = 0
+    for i in range(len(converted_memory) - 1, -1, -1):
+        if converted_memory[i]['content'].startswith('Tool call'):
+            tool_call_count += 1
+            if tool_call_count > 5:
+                del converted_memory[i]
     converted_memory = [(msg["role"], msg["content"]) for msg in memory][-20:]
-    messages = langgraph_agent_executor.invoke({"messages": converted_memory + [("human", input_str)]})
 
+    messages = langgraph_agent_executor.invoke({"messages": converted_memory + [("human", input_str)]})
 
     memory.append({"role": "assistant", "content": messages["messages"][-1].content})
     save_memory()
