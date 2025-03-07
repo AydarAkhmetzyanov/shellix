@@ -4,6 +4,7 @@ from langgraph.prebuilt import create_react_agent
 from langchain_community.tools import TavilySearchResults
 from shellix.shell_tool import ShellTool
 from shellix.write_tool import write_file, modify_file, read_file
+from shellix.memory import memory, save_memory
 from datetime import datetime
 import json
 import os
@@ -11,7 +12,7 @@ import os
 
 def load_tools(credentials):
     search_tool = TavilySearchResults(
-        max_results=10,
+        max_results=5,
         search_depth="advanced",
         include_answer=True,
         include_raw_content=False,
@@ -34,30 +35,17 @@ def get_directory_contents(current_directory):
         return [], []
 
 
-def load_memory():
-    try:
-        with open('.shellix_memory.json', 'r') as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return []
-
-
-def save_memory(memory):
-    with open('.shellix_memory.json', 'w') as file:
-        json.dump(memory, file, indent=4)
-
-
-def process_input(input_str, credentials, current_directory):
+def process_input(input_str, credentials):
+    memory.append({"role": "human", "content": input_str})
     current_date = datetime.now().strftime("%Y-%m-%d")
+    current_directory = os.getcwd()
     folder_path = os.path.abspath(current_directory)
     files_list, folders_list = get_directory_contents(current_directory)
-
-    memory = load_memory()
 
     prompt = ChatPromptTemplate.from_messages(
         [
             ("system", f"""
-            You are a helpful console assistant called Shellix. 
+            You are a helpful console assistant called Shellix.
 
             Current Date: {current_date}
             Current Directory: {folder_path}
@@ -77,14 +65,20 @@ def process_input(input_str, credentials, current_directory):
     tools = load_tools(credentials)
 
     model = ChatOpenAI(model=credentials['OPENAI_MODEL'], temperature=0, api_key=credentials['OPENAI_KEY'],
-                         streaming=True)
+                       streaming=True)
     langgraph_agent_executor = create_react_agent(model, tools, prompt=prompt)
 
-    # Convert memory (list of dicts) into a list of tuples
-    converted_memory = [(msg["role"], msg["content"]) for msg in memory]
+    converted_memory = memory
+    tool_call_count = 0
+    for i in range(len(converted_memory) - 1, -1, -1):
+        if converted_memory[i]['content'].startswith('Tool call'):
+            tool_call_count += 1
+            if tool_call_count > 5:
+                del converted_memory[i]
+    converted_memory = [(msg["role"], msg["content"]) for msg in memory][-20:]
+
     messages = langgraph_agent_executor.invoke({"messages": converted_memory + [("human", input_str)]})
 
-    memory.append({"role": "human", "content": input_str})
     memory.append({"role": "assistant", "content": messages["messages"][-1].content})
-    save_memory(memory)
+    save_memory()
     print(messages["messages"][-1].content)

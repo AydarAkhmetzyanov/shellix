@@ -2,6 +2,7 @@
 
 import logging
 import platform
+from shellix.memory import memory
 from typing import Any, List, Optional, Type, Union
 
 from langchain_core.callbacks import (
@@ -95,10 +96,15 @@ class ShellTool(BaseTool):  # type: ignore[override, override]
             result = self.process.run(commands)
             if len(result) > MAX_OUTPUT_LENGTH:
                 result = result[:MAX_OUTPUT_LENGTH] + "\n (output truncated)"
-            if len(result) > 255:
-                print(result[0:255] + '...')
+            if len(result) > 2000:
+                memory.append(
+                    {"role": "assistant", "content": f"Tool call, shell: {commands} Result: {result[0:2000]}.."})
+                print(result[0:2000] + '...')
             else:
+                memory.append(
+                    {"role": "assistant", "content": f"Tool call, shell: {commands} Result: {result[0:2000]}"})
                 print(result)
+
             return result
 
         except Exception as e:
