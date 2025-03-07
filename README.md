@@ -12,10 +12,11 @@ Shellix is an open-source terminal AI assistant designed to revolutionize your d
 
 ## Installation
 
-To install the dependencies, run:
+Python installation is pre-requisite for Shellix.
+To install run from the system or project terminal:
 
 ```bash
-poetry install
+pip install shellix
 ```
 
 ## Usage Examples
@@ -44,46 +45,24 @@ poetry install
    ```
    Save time on research with AI-driven web searches and summaries.
 
-## Usage
+## Development snippets
 
-To run Shellix, use:
+To run Shellix in dev mode, use:
 
 ```bash
+poetry install
 poetry run sx ...
 ```
 
-## Updating Dependencies
+## Building, updating and publishing the Project
 
-To update the project dependencies, execute:
+Use:
 
 ```bash
 poetry update
-```
-
-## Building the Project
-
-To build the project, use:
-
-```bash
 poetry build
+poetry publish
 ```
-
-## Publishing a New Version
-
-To publish a new version of Shellix, follow these steps:
-
-1. Ensure all changes are committed and the version number is updated in `pyproject.toml`.
-2. Build the project:
-
-    ```bash
-    poetry build
-    ```
-
-3. Publish the package to PyPI:
-
-    ```bash
-    poetry publish
-    ```
 
 For more details, please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
