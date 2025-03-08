@@ -9,6 +9,7 @@ def main():
         print("Enter your input and Ctrl+D twice to execute):")
         # Read all input from stdin until EOF
         user_input = sys.stdin.read().strip()
+        print(user_input)
 
     print("\nProcessing...\n")
     process_input(user_input)
