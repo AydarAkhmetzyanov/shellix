@@ -9,6 +9,9 @@ from datetime import datetime
 import json
 import os
 
+from shellix.credentials_loader import load_credentials
+
+credentials = load_credentials()
 
 def load_tools(credentials):
     search_tool = TavilySearchResults(
@@ -34,8 +37,7 @@ def get_directory_contents(current_directory):
         print(f"Error accessing directory: {e}")
         return [], []
 
-
-def process_input(input_str, credentials):
+def process_input(input_str):
     memory.append({"role": "human", "content": input_str})
     current_date = datetime.now().strftime("%Y-%m-%d")
     current_directory = os.getcwd()
