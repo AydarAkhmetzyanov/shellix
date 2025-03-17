@@ -1,6 +1,7 @@
 import os
 import sys
 from shellix.ai_core import process_input
+from shellix.memory import clear_memory
 
 def main():
     if len(sys.argv) > 1:
@@ -12,7 +13,11 @@ def main():
         print(user_input)
 
     print("\nProcessing...\n")
-    process_input(user_input)
+    if user_input.lower() == 'clear':
+        clear_memory()
+        print('Memory cleared successfully.')
+    else:
+        process_input(user_input)
 
 
 if __name__ == "__main__":

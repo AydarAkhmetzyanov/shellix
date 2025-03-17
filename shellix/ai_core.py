@@ -77,7 +77,7 @@ def process_input(input_str):
             tool_call_count += 1
             if tool_call_count > 5:
                 del converted_memory[i]
-    converted_memory = [(msg["role"], msg["content"]) for msg in memory][-20:]
+    converted_memory = [(msg["role"], msg["content"]) for msg in memory][-30:]
 
     messages = langgraph_agent_executor.invoke({"messages": converted_memory + [("human", input_str)]})
 

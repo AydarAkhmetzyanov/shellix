@@ -62,7 +62,7 @@ class ShellTool(BaseTool):
 
             result = self.process.run(command)
             if len(result) > MAX_OUTPUT_LENGTH:
-                result = result[:MAX_OUTPUT_LENGTH] + "\n (output truncated)"
+                result = result[:MAX_OUTPUT_LENGTH // 2] + "\n...\n" + result[-MAX_OUTPUT_LENGTH // 2:] + "\n (output truncated)"
 
             if len(result) > 2000:
                 memory.append(

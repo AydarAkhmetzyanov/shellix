@@ -1,4 +1,5 @@
 import json
+import os
 
 
 # Load memory from JSON
@@ -9,6 +10,16 @@ def load_memory_from_json(file_path):
         return memory_data
     except FileNotFoundError:
         return []
+
+
+def clear_memory():
+    global memory
+    memory = []
+    try:
+        os.remove('.shellix_memory.json')
+        print("Memory file removed.")
+    except FileNotFoundError:
+        print("No memory file found to remove.")
 
 
 # Initialize memory
