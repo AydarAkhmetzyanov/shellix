@@ -13,6 +13,17 @@ def ensure_config():
 
 
 def setup_credentials():
+    # Check and add .shellix_memory.json to system-wide gitignore
+    gitignore_global = os.path.expanduser('~/.gitignore_global')
+    if os.path.exists(gitignore_global):
+        with open(gitignore_global, 'r+', encoding='utf-8') as f:
+            lines = f.readlines()
+            if '.shellix_memory.json\n' not in lines:
+                f.write('.shellix_memory.json\n')
+    else:
+        with open(gitignore_global, 'w', encoding='utf-8') as f:
+            f.write('.shellix_memory.json\n')
+    os.system('git config --global core.excludesfile ~/.gitignore_global')
     print("Shellix Initial Setup")
     openai_key = input("Enter your OpenAI API key (https://platform.openai.com/docs/overview): ").strip()
     tavily_key = input("Enter your Tavily Search API key (Get it for free here: https://tavily.com/): ").strip()
