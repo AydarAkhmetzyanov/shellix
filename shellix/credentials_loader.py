@@ -2,7 +2,7 @@ import os
 
 CONFIG_DIR = os.path.join(os.path.expanduser("~"), ".shellix")
 CREDENTIALS_FILE = os.path.join(CONFIG_DIR, "credentials")
-DEFAULT_MODEL = "gpt-4o"
+DEFAULT_MODEL = "gpt-4.1"
 
 
 def ensure_config():

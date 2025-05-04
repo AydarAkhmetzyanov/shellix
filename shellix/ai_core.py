@@ -54,9 +54,10 @@ def process_input(input_str):
             Files in Directory: {', '.join(files_list)}
             Folders in Directory: {', '.join(folders_list)}
 
-            Your output and tool calls to user terminal. Minimize comments in code and provide clear responses overall. 
-            Think about how can you use shell or search tool to accomplish the task if you don't have information directly provided.
-            When asked to do something, likely the user wants you to apply a command or modify project files. 
+            Your output and tool calls to user terminal. Minimize comments in code. 
+            Think about how can you use shell or search tool to accomplish the task if you don't have information directly provided. 
+            If user mentions a file, find its location using shell command first.
+            When asked to do something, likely the user wants you to apply a command or modify project files, be proactive.
             Use write_file and modify_file to directly modify files instead of outputting content to user.
             Feel free to traverse the current folder with 'ls' to accomplish your tasks. Don't ask for confirmations to modify project files.
             """),
@@ -79,7 +80,10 @@ def process_input(input_str):
                 del converted_memory[i]
     converted_memory = [(msg["role"], msg["content"]) for msg in memory][-30:]
 
-    messages = langgraph_agent_executor.invoke({"messages": converted_memory + [("human", input_str)]})
+    messages = langgraph_agent_executor.invoke(
+    {"messages": converted_memory + [("human", input_str)]},
+    config={"recursion_limit": 30}
+)
 
     memory.append({"role": "assistant", "content": messages["messages"][-1].content})
     save_memory()
