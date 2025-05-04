@@ -69,7 +69,7 @@ def process_input(input_str):
 
     model = ChatOpenAI(model=credentials['OPENAI_MODEL'], temperature=0, api_key=credentials['OPENAI_KEY'],
                        streaming=True)
-    langgraph_agent_executor = create_react_agent(model, tools, prompt=prompt)
+    langgraph_agent_executor = create_react_agent(model, tools, prompt=prompt, version='v2')
 
     converted_memory = memory
     tool_call_count = 0
