@@ -81,9 +81,9 @@ def process_input(input_str):
     converted_memory = [(msg["role"], msg["content"]) for msg in memory][-30:]
 
     messages = langgraph_agent_executor.invoke(
-    {"messages": converted_memory + [("human", input_str)]},
-    config={"recursion_limit": 30}
-)
+        {"messages": converted_memory + [("human", input_str)]},
+        {"recursion_limit": 40, "max_iterations": 40},
+    )
 
     memory.append({"role": "assistant", "content": messages["messages"][-1].content})
     save_memory()
